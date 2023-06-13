@@ -25,7 +25,6 @@ dist-ssr
 
 # Dev
 public
-src
 index.html
 vite.config.js
 tsconfig.json
