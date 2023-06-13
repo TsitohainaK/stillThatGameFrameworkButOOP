@@ -25,6 +25,8 @@ dist-ssr
 
 # Dev
 public
+src-old
+src/main.ts
 index.html
 vite.config.js
 tsconfig.json
