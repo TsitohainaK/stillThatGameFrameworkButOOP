@@ -7,11 +7,13 @@ export default class LayersManager {
     this.layers = this.scene.layers;
   }
 
-  addLayer(layer: Layer) {
-    const key = layer.key;
-    if (this.layers.some((l) => l.key === key))
-      throw new Error(`[add layer] layer with key:${key} already exist!`);
-    this.layers.push(layer);
+  addLayer(layers: Layer[]) {
+    layers.forEach((layer) => {
+      const key = layer.key;
+      if (this.layers.some((l) => l.key === key))
+        throw new Error(`[add layer] layer with key:${key} already exist!`);
+      this.layers.push(layer);
+    });
   }
 
   removeLayer(key: string) {

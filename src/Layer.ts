@@ -4,8 +4,9 @@ export default class Layer {
   gameObjects: GameObject[] = [];
   constructor(public key: string) {}
 
-  addGameObject(go:GameObject){
-    this.gameObjects.push(go)
+  addGameObject(gameObjects:GameObject[]){
+    gameObjects.forEach(gameObject => this.gameObjects.push(gameObject))
+    
   }
 
   render(ctx: CanvasRenderingContext2D) {

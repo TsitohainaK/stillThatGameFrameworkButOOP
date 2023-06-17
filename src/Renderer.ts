@@ -12,6 +12,7 @@ export default class Renderer {
   }
 
   step() {
+    this.game.update()
     this.ctx.clearRect(0, 0, this.game.config.size!.width, this.game.config.size!.height);
     this.ctx.save();
     // moving
@@ -58,17 +59,4 @@ export function CreateRenderer(game: Game) {
   game.canvas.style.height = config.size.height + "px";
 
   game.renderer = new Renderer(game);
-}
-
-export function AddToDom(game: Game) {
-  if (!game.canvas) {
-    CreateRenderer(game);
-  }
-
-  if (!game.parentElt) {
-    if (game.config.parentEltId) game.parentElt = document.getElementById(game.config.parentEltId);
-    else game.parentElt = document.body;
-  }
-
-  game.parentElt!.appendChild(game.canvas!);
 }

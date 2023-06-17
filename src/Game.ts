@@ -1,6 +1,6 @@
 import { Engine, IEngineDefinition, World } from "matter-js";
-import { ChangeDOMTitle, DOMContentLoaded } from "./Dom";
-import Renderer, { AddToDom, CreateRenderer } from "./Renderer";
+import { AddToDom, ChangeDOMTitle, DOMContentLoaded } from "./Dom";
+import Renderer, { CreateRenderer } from "./Renderer";
 import Scene from "./Scene";
 import ScenesManager from "./ScenesManager";
 
@@ -38,12 +38,11 @@ export class Game {
 
   constructor(public config: GameConfig = {}, public scenes: Scene[] = []) {
     if (config.name) this.name = config.name;
-
     DOMContentLoaded(this.boot.bind(this));
   }
 
   private boot() {
-    this.physicEngine = Engine.create(this.config.physicEngineOptions)
+    this.physicEngine = Engine.create(this.config.physicEngineOptions);
     this.world = this.physicEngine.world;
     this.scenesManager = new ScenesManager(this);
     ChangeDOMTitle(this.name);
@@ -51,8 +50,8 @@ export class Game {
     AddToDom(this);
   }
 
-  update(){
-    if(this.physicEngine) Engine.update(this.physicEngine)
+  update() {
+    if (this.physicEngine) Engine.update(this.physicEngine);
   }
 
   render() {
@@ -60,6 +59,6 @@ export class Game {
   }
 
   start() {
-    this.renderer!.run();
+    this.renderer?.run();
   }
 }

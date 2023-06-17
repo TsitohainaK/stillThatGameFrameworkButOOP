@@ -1,12 +1,16 @@
 import { Body, Composite } from "matter-js";
 import { Game } from "./Game";
 import Scene from "./Scene";
+import { CheckArray } from "./Utils";
+import Layer from "./Layer";
 
 export default class ScenesManager {
   scenes: Scene[] = [];
   constructor(private game: Game) {
     this.scenes = game.scenes;
     this.setCurrent(game.config.defaultScenes);
+    if (!CheckArray(game.scenes, Scene))
+      throw new Error("[Game]: No scene found, aborting game.start!", { cause: "No scene passed" });
 
     this.boot();
   }
@@ -16,19 +20,26 @@ export default class ScenesManager {
     if (this.game.world) {
       const layers = this.game.currentScene?.layers;
       const transforms: Body[] = [];
-      layers!.forEach((layer) => {
+      if (!CheckArray(layers, Layer))
+        throw new Error("[Game]: No layer found, aborting game.start!", {
+          cause: "No layer passed",
+        });
+
+      layers?.forEach((layer) => {
         layer.gameObjects.forEach((gameObject) => {
           if (gameObject.transform?.value) transforms.push(gameObject.transform.value);
         });
       });
-      console.log(transforms)
-      Composite.add(this.game.world, transforms);
+      console.log(transforms, this.game.world);
+      Composite.add(this.game.world, [...transforms]);
     }
   }
 
   addScenes(key: string, scene: Scene) {
     if (this.scenes.some((s) => s.key === key))
-      throw new Error(`[add scenes] Scene with key:${key} already exist!`);
+      throw new Error(`[add scene] Scene with key:${key} already exist!`, {
+        cause: "Trying to add scenes with existing key",
+      });
 
     if (!this.game.world) console.warn("Physic world missing!");
     if (this.game.world) {
@@ -39,7 +50,7 @@ export default class ScenesManager {
           if (gameObject.transform?.value) transforms.push(gameObject.transform.value);
         });
       });
-      console.log(transforms)
+      console.log(transforms);
       Composite.add(this.game.world, transforms);
     }
     this.scenes.push(scene);
@@ -65,7 +76,7 @@ export default class ScenesManager {
 
   setCurrent(key?: string) {
     if (this.scenes.length < 1) return;
-    if (!key && this.game.scenes.length > 0) {
+    if (!key) {
       this.game.currentScene = this.scenes[0];
       return;
     }
