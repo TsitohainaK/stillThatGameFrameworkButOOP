@@ -5,7 +5,7 @@ import Scene from "./Scene";
 import ScenesManager from "./ScenesManager";
 
 export interface ElementCSSInlineStyle {
-  style: CSSStyleDeclaration;
+  style: Partial<CSSStyleDeclaration>;
 }
 export type GameConfig = {
   name?: string;
@@ -14,7 +14,7 @@ export type GameConfig = {
     width: number;
     height: number;
   };
-  canvasStyle?: CSSStyleDeclaration;
+  canvasStyle?: Partial<CSSStyleDeclaration>;
   /**
    * key for scene to show at launch if there is more than one
    */
@@ -51,6 +51,7 @@ export class Game {
   }
 
   update() {
+    this.currentScene?.update();
     if (this.physicEngine) Engine.update(this.physicEngine);
   }
 

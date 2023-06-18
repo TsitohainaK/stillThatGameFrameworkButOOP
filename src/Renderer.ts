@@ -12,17 +12,18 @@ export default class Renderer {
   }
 
   step() {
-    this.game.update()
+    this.game.update();
+    
     this.ctx.clearRect(0, 0, this.game.config.size!.width, this.game.config.size!.height);
     this.ctx.save();
     // moving
     this.ctx.translate(0, 0);
-    
+
     // zooming
     this.ctx.scale(1, 1);
 
     // doing every things
-    this.game.render()
+    this.game.render();
 
     this.ctx.restore();
   }
@@ -49,7 +50,7 @@ export function CreateRenderer(game: Game) {
 
   if (config.canvasStyle) {
     Object.keys(config.canvasStyle).forEach((k: any) => {
-      game.canvas!.style[k] = config.canvasStyle![k];
+      game.canvas!.style[k] = config.canvasStyle![k] as string;
     });
   }
 

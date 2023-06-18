@@ -25,5 +25,5 @@ canvas {
   position: absolute;
   top: 0;
   left: 0;
-  background-color: dimgray;
+  /* background-color: dimgray; */
 }

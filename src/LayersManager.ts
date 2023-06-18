@@ -33,4 +33,10 @@ export default class LayersManager {
     this.layers[id1] = this.layers[id2];
     this.layers[id2] = tmp;
   }
+
+  update(){
+    this.layers.forEach(layer => {
+      layer.update()
+    });
+  }
 }

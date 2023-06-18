@@ -2,8 +2,7 @@ import { Body } from "matter-js";
 
 export default class CustomBody {
   private body = Body;
-  constructor(public value: Body) {
-  }
+  constructor(public value: Body | Matter.Body) {}
 
   setVelocity(velocity: { x: number; y: number }) {
     this.body.setVelocity(this.value, velocity);

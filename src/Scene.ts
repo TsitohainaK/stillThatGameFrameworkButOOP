@@ -14,4 +14,8 @@ export default class Scene {
       layer.render(ctx);
     });
   }
+
+  update() {
+    this.layers.forEach((layer) => layer.update());
+  }
 }

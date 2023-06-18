@@ -41,8 +41,8 @@ export default class ScenesManager {
         cause: "Trying to add scenes with existing key",
       });
 
-    if (!this.game.world) console.warn("Physic world missing!");
-    if (this.game.world) {
+      if (!this.game.world) console.warn("Physic world missing!");
+      if (this.game.world) {
       const layers = scene.layers;
       const transforms: Body[] = [];
       layers.forEach((layer) => {
